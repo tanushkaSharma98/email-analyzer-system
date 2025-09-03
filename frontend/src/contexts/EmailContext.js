@@ -236,7 +236,7 @@ export const EmailProvider = ({ children }) => {
     }, 300000); // Reduced frequency to every 5 minutes (300 seconds)
 
     return () => clearInterval(interval);
-  }, [state.loading, fetchLatestEmail, fetchConfig]); // Removed fetchStats from deps; keep config
+  }, [state.loading, fetchLatestEmail, fetchConfig, fetchStats]); // Include fetchStats to satisfy exhaustive-deps
 
   const value = {
     ...state,
