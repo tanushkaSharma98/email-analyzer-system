@@ -53,9 +53,15 @@ A full-stack application that automatically identifies the Receiving Chain and E
    IMAP_PORT=993
    IMAP_USER=your-email@gmail.com
    IMAP_PASS=your-app-password
+   TEST_SUBJECT=Test Email Analysis
    
    # Server
    PORT=3001
+   ```
+
+   Optional Frontend env (create `frontend/.env.local` during development):
+   ```env
+   REACT_APP_API_URL=http://localhost:3001
    ```
 
 3. **Start Development Servers:**
@@ -70,9 +76,10 @@ A full-stack application that automatically identifies the Receiving Chain and E
 ## 📧 How to Use
 
 1. **Send Test Email:**
-   - To: `analyzer@yourdomain.com` (configure in IMAP settings)
-   - Subject: `Test123` (or any subject with "Test" keyword)
-   - The system will automatically detect and process the email
+   - To: your configured IMAP inbox (e.g., your Gmail address)
+   - Subject: `Test Email Analysis` (must match exactly or the `TEST_SUBJECT` value)
+   - Keep the email UNREAD and in Inbox
+   - The system processes UNREAD emails that match `TEST_SUBJECT`
 
 2. **View Results:**
    - Open the frontend dashboard
@@ -112,6 +119,7 @@ email-analyzer-system/
 1. Connect your GitHub repository to Vercel
 2. Set build command: `cd frontend && npm run build`
 3. Set output directory: `frontend/build`
+ 4. Set environment variable: `REACT_APP_API_URL` to your backend URL
 
 ### Backend (Render/Heroku)
 1. Connect repository to deployment platform
@@ -129,6 +137,19 @@ email-analyzer-system/
 - `GET /emails/latest` - Get latest processed email
 - `GET /emails/all` - Get all email logs
 - `GET /emails/:id` - Get specific email by ID
+ - `GET /emails/rescan` - Trigger immediate IMAP scan
+ - `GET /health` - Service and IMAP status
+
+## 🔗 Live Demo
+
+- Frontend: https://email-analyzer-system.vercel.app
+- Backend: https://email-analyzer-backend-uw1o.onrender.com
+- Health: https://email-analyzer-backend-uw1o.onrender.com/health
+- Rescan: https://email-analyzer-backend-uw1o.onrender.com/emails/rescan
+
+## 🎥 Demo Video
+
+- Demo: <add your Loom/video link here>
 
 ## 🔧 Configuration
 
@@ -139,6 +160,10 @@ email-analyzer-system/
 - Port: `993`
 - Security: SSL/TLS
 - Use App Password (not regular password)
+
+Additional rules:
+- Only UNREAD emails are processed.
+- Subject must equal `TEST_SUBJECT` (defaults to `Test Email Analysis`).
 
 **Outlook:**
 - Host: `outlook.office365.com`
